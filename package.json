@@ -18,7 +18,12 @@
     "directories": {
       "buildResources": "resources"
     },
-    "publish": null
+    "mac": {
+      "target": "mas-dev"
+    },
+    "mas": {
+      "hardenedRuntime": false
+    }
   },
   "scripts": {
     "postinstall": "electron-builder install-app-deps",
