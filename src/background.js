@@ -22,6 +22,22 @@ const setApplicationMenu = () => {
   Menu.setApplicationMenu(Menu.buildFromTemplate(menus));
 };
 
+const testHTTPSCall = () => {
+  const https = require('https');
+
+  https.get('https://www.electronjs.org/', (res) => {
+    console.log('statusCode:', res.statusCode);
+    console.log('headers:', res.headers);
+  
+    res.on('data', (d) => {
+      process.stdout.write(d);
+    });
+    
+  }).on('error', (e) => {
+    console.error(e);
+  });
+}
+
 // Save userData in separate folders for each environment.
 // Thanks to this you can use production and development versions of the app
 // on same machine like those are two separate apps.
@@ -32,6 +48,7 @@ if (env.name !== "production") {
 
 app.on("ready", () => {
   setApplicationMenu();
+  testHTTPSCall();
 
   const mainWindow = createWindow("main", {
     width: 1000,
@@ -49,9 +66,7 @@ app.on("ready", () => {
     })
   );
 
-  if (env.name === "development") {
-    mainWindow.openDevTools();
-  }
+  mainWindow.openDevTools();
 });
 
 app.on("window-all-closed", () => {
