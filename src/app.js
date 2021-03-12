@@ -33,3 +33,17 @@ document.querySelector("#author").innerHTML = manifest.author;
 document.querySelector("#env").innerHTML = env.name;
 document.querySelector("#electron-version").innerHTML =
   process.versions.electron;
+
+const https = require('https');
+
+https.get('https://www.electronjs.org/', (res) => {
+  console.log('statusCode:', res.statusCode);
+  console.log('headers:', res.headers);
+
+  res.on('data', (d) => {
+    console.log(d);
+  });
+  
+}).on('error', (e) => {
+  console.error(e);
+});
